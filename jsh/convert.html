@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="convert-c" value="option1" checked>
+        <label class="form-check-label" for="exampleRadios1">
+            攝氏轉為華氏   <!--華氏= (攝氏)(9/5) + 32--->
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="convert-f" value="option2">
+        <label class="form-check-label" for="exampleRadios2">
+            華氏轉為攝氏 
+        </label>
+    </div>
+
+    </div>
+
+    <br>
+    <div>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th scope="row">
+                        <button type="button" class="btn btn-lg btn-block input-pad" value="1">1</button>
+                    </th>
+                    <td>
+                        <button type="button" class="btn btn-lg btn-block input-pad" value="2">2</button>
+                    </td>
+                    <td> <button type="button" class="btn btn-lg btn-block input-pad" value="3">3</button></td>
+
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <button type="button" class="btn  btn-lg btn-block input-pad" value="4">4</button>
+                    </th>
+                    <td> <button type="button" class="btn btn-lg btn-block input-pad" value="5">5</button></td>
+                    <td> <button type="button" class="btn btn-lg btn-block input-pad" value="6">6</button></td>
+
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <button type="button" class="btn  btn-lg btn-block input-pad" value="7">7</button>
+                    </th>
+                    <td> <button type="button" class="btn btn-lg btn-block input-pad" value="8">8</button></td>
+                    <td> <button type="button" class="btn btn-lg btn-block input-pad" value="9">9</button></td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <button type="button" class="btn btn-g btn-block input-pad" value="0">0</button>
+                    </th>
+                    <td> <button type="button" class="btn btn-lg btn-block input-pad" value=".">.</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="input-group">
+        <input type="text" class="form-control text-right " placeholder="0"
+            aria-label="Recipient's username with two button addons" aria-describedby="button-addon4" id="input">
+        <div class="input-group-append" id="button-addon4">
+            <button class="btn btn-outline-secondary " type="button" onclick="doCalc()">轉換</button>
+            <button class="btn btn-outline-secondary" type="button" onclick="clearInput()">清除</button>
+        </div>
+    </div>
+    <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm">結果</span>
+        </div>
+        <input type="text" class="form-control text-right" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-sm" value="0" id="result" >
+    </div>
+<script>
+ 
+    
+
+    function inputButton(){
+        var input =document.getElementById("input");
+        var text = this.value;
+        input.value+=text;
+    }
+    var inputButtons = document.getElementsByClassName("input-pad");
+    
+    for(var i =0;i<inputButtons.length;i++){
+        inputButtons[i].onclick =inputButton;
+      //  console.log(inputButton)
+    }
+    function doCalc(){
+        var input = document.getElementById("input");  
+        var result = document.getElementById("result");
+        var r =(input.value * 1.8)+32;
+           result.value = r;
+        if( document.getElementById("convert-c").checked ){
+           var r =(input.value * 1.8)+32;
+           result.value = r;
+       }else if (document.getElementById("convert-f").checked){
+           var r2 =(input.value - 32 )*(5/9);
+           console.log(r2);
+           result.value = r2;
+       }
+       
+    }
+
+    function clearInput(){
+        var input = document.getElementById("input");
+        var result = document.getElementById("result");
+        input.value= "0";
+        result.value ="0";
+
+    }
+</script>
+</body>
+</html>
