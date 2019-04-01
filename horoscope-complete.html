@@ -5,34 +5,14 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <!--<link rel="icon" href="../../favicon.ico">-->
-
-  <title>Temperature convert</title>
-
+  <title>Horoscope</title>
   <!-- Bootstrap core CSS -->
-  <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
-
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <!--<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
-
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="stylesheets/dashboard.css" rel="stylesheet">
-
-  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-  <!--<script src="../../assets/js/ie-emulation-modes-warning.js"></script>-->
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
-<body>
+<body onload="time()">
 
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
@@ -63,67 +43,43 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-3 col-md-2 sidebar">
-        <ul class="nav nav-sidebar">
-          <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-          <li><a href="#">Reports</a></li>
-          <li><a href="#">Analytics</a></li>
-          <li><a href="#">Export</a></li>
-        </ul>
-        <ul class="nav nav-sidebar">
-          <li><a href="">Nav item</a></li>
-          <li><a href="">Nav item again</a></li>
-          <li><a href="">One more nav</a></li>
-          <li><a href="">Another nav item</a></li>
-          <li><a href="">More navigation</a></li>
-        </ul>
-        <ul class="nav nav-sidebar">
-          <li><a href="">Nav item again</a></li>
-          <li><a href="">One more nav</a></li>
-          <li><a href="">Another nav item</a></li>
-        </ul>
-      </div>
 
-      <div class="input-group">
-        <span class="input-group-addon" id="sizing-addon1">猜答案</span>
-        <input id="userGuess" type="text" name="" class="form-control" value="" required="required">
-        <span class="input-group-btn">
-          <a id="guess" type="button" class="btn btn-default" onclick="doGuess()">猜!</a>
-        </span>
       </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <ul id="guessResults" class="list-group">
-          <li class="list-group-item">
-            <span class="label label-danger"></span>
-          </li>
-        </ul>
+
         <h2>生命靈數</h2>
-        <div class="input-group">
-          <span class="input-group-addon" id="sizing-addon1">選擇日期</span>
-          <input id="birthdate" class="form-control" type="date" name="birthdate" >
-          <span class="input-group-btn">
-            <a id="guess" type="button" class="btn btn-default" onclick="doAnalysis()">分析結果</a>
-          </span>
-        </div>
-        <!-- put your screen layout here to provide user interface -->
 
+        <p>
+          <div class="input-group">
+            <input id="birthdate" class="form-control" type="date" name="birthdate" value="0">
+            <span class="input-group-btn">
+              <a id="analysis" type="button" class="btn btn-primary" onclick="doAnalysis(); return false;">分析結果</a>
+            </span>
+          </div>
+        </p>
+
+        <ul id="results" class="list-group">
+          <!--
+            <li class="list-group-item">
+              <p>
+                <em>2000/1/1</em> 的你，星座是 <em>獅子座</em>
+              </p>
+              <p>
+                你的生命靈數：<br>
+                1. 你是Leo獅子座中最為自我的，但可能因此造成人際問題。
+              </p>
+            </li>
+            -->
+        </ul>
+        <a id="analysis" type="button" class="btn btn-primary" onclick="time()">a</a>
+        <div id="showbox"></div>
       </div>
-
     </div>
   </div>
-  </div>
 
-  <!-- Bootstrap core JavaScript
-    ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <!--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>-->
-  <script src="scripts/bootstrap.min.js"></script>
-  <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-  <!--<script src="../../assets/js/vendor/holder.min.js"></script>-->
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script>
-    var abc = document.getElementById("abc");
     var horoscopeData = {
       "aquarius": {
         "name": "水瓶座",
@@ -153,7 +109,7 @@
           "你對於某些事都抱著很大的熱誠，過度的話會顯得特別偏執。"
         ]
       },
-      "aries": { //3月21日 ~ 4月19日
+      "aries": {
         "name": "牡羊座",
         "lookup": [
           "你是個主觀很強的人，只想著自己想做的事。",
@@ -295,131 +251,144 @@
       }
     };
 
+    function dateToHoroscopeName(dateString) {
+      var date = new Date(dateString),
+        m = date.getMonth() + 1,
+        d = date.getDate();
 
-    function doAnalysis() {
-      var birthdate = document.getElementById("birthdate").value;
+      if ((m == 1 && d >= 21) || (m == 2 && d <= 19)) {
+        return "aquarius";
+      } else if ((m == 2 && d >= 20) || (m == 3 && d <= 20)) {
+        return "pisces";
+      } else if ((m == 3 && d >= 21) || (m == 4 && d <= 19)) {
+        return "aries";
+      } else if ((m == 4 && d >= 20) || (m == 5 && d <= 20)) {
+        return "taurus";
+      } else if ((m == 5 && d >= 21) || (m == 6 && d <= 21)) {
+        return "gemini";
+      } else if ((m == 6 && d >= 22) || (m == 7 && d <= 22)) {
+        return "cancer";
+      } else if ((m == 7 && d >= 23) || (m == 8 && d <= 22)) {
+        return "leo";
+      } else if ((m == 8 && d >= 23) || (m == 9 && d <= 22)) {
+        return "virgo";
+      } else if ((m == 9 && d >= 23) || (m == 10 && d <= 23)) {
+        return "libra";
+      } else if ((m == 10 && d >= 24) || (m == 11 && d <= 21)) {
+        return "scorpio";
+      } else if ((m == 11 && d >= 22) || (m == 12 && d <= 20)) {
+        return "sagittarius";
+      } else /*if ((m == 12 && d >= 21) || (m == 1 && d <= 20))*/ {
+        return "capricorn";
+      }
+    }
 
-      var a = new Date(birthdate);
-      a.getMonth();
-      a.getDate();
-      a.getFullYear();
-      var z = a.getFullYear().toString() + a.getMonth().toString() + 1 + a.getDate().toString();
+    function getNumerologyIndex(dateString) {
+      var date = new Date(dateString),
+        y = date.getFullYear().toString(),
+        m = (date.getMonth() + 1).toString(),
+        d = date.getDate().toString();
+
+      var ymd = y + m + d;
+
+      return getIndex(ymd);
+    }
+
+    function getIndex(source) {
       var result = 0;
-      for (var i = 0; i < z.length; i++) {
-        result = result + parseInt(z[i]);
+
+      for (var i = 0; i < source.length; i++) {
+        result = result + parseInt(source[i]);
       }
 
       if (result > 9) {
-        result = result.toString();
-      }
-      //console.log(result);
-      var result2 = 0;
-
-      for (var i = 0; i < result.length; i++) {
-        result2 = result2 + parseInt(result[i]);
+        result = getIndex(result.toString());
       }
 
-      if (result2 >= 10) {
-        result2 = (result2 / 10) + (result2 % 10);
-      }
-
-      var result3 = result2 - 1;
-      var month =a.getMonth();
-      var date = a .getDate();
-     // console.log(result2.toString());
-    //  console.log( result3);
-      var str = "";
-     // var life = horoscopeData[str].lookup[result3];
-      if (month == 2 && date >=21  || month == 3 && date <=19 ) {
-        str = 'aries';
-        var s = horoscopeData[str].name;
-        var life = horoscopeData[str].lookup[result2-1];
-       
-      } else if (month == 3 && date >=20  || month == 4 && date <=20) {
-        str ='taurus';
-        var s = horoscopeData[str].name;
-        var life = horoscopeData[str].lookup[result2-1];
-       
-      } else if (month == 4 && date >=21  || month == 5 && date <=21) {
-        str ='gemini';
-        var s = horoscopeData[str].name;
-        var life = horoscopeData[str].lookup[result2-1];
-       
-      } else if (month == 5 && date >=22  || month == 6 && date <=22) {
-        str ='cancer';
-        var s = horoscopeData[str].name;
-        var life = horoscopeData[str].lookup[result2-1];
-      
-      } else if (month == 6 && date >=23  || month == 7 && date <=22) {
-        str ='leo';
-        var s = horoscopeData[str].name;
-        var life = horoscopeData[str].lookup[result2-1];
-        
-      } else if (month == 7 && date >=23  || month == 8 && date <=22) {
-        
-        str ='virgo';
-        var s = horoscopeData[str].name;
-        var life = horoscopeData[str].lookup[result2-1];
-      
-        
-      } else if (month == 8 && date >=23  || month == 9 && date <=22) {
-        str ='libra';
-        var s = horoscopeData[str].name;
-        var life = horoscopeData[str].lookup[result2-1];
-      
-      } else if (month == 9 && date >=24  || month == 10 && date <=21) {
-        str ='scorpio';
-        var s = horoscopeData[str].name;
-        var life = horoscopeData[str].lookup[result2-1];
-      
-      } else if (month == 10 && date >=22  || month == 11 && date <=20) {
-        str ='sagittarius';
-        var s = horoscopeData[str].name;
-        var life = horoscopeData[str].lookup[result2-1];
-      
-      } else if (month == 11 && date >=21  || month == 0 && date <=20) {
-        str ='capricorn';
-        var s = horoscopeData[str].name;
-        var life = horoscopeData[str].lookup[result2-1];
-       
-      } else if (month == 0 && date >=21  || month == 1 && date <=19) {
-        str ='aquarius';
-        var s = horoscopeData[str].name;
-        var life = horoscopeData[str].lookup[result2-1];
-       
-      } else if (month == 1 && date >=20  || month == 2 && date <=20) {
-        str ='pisces';
-        var s = horoscopeData[str].name;
-        var life = horoscopeData[str].lookup[result2-1];
-      }
-      console.log(s);
-      var url = "https://gist.githubusercontent.com/dinowang/5290d4cebf96a666c29ab0878afeb2f1/raw/d8c778aad172fdf9175e1a1109409ba49d2647b8/" + str + ".json";
-
-       $.ajax({
-         type: "get",
-         url: url,
-        // data: "data",
-         dataType: "json",
-         error:function(result,status,xhr){
-           alert(status+"錯了");
-         },
-         success: function (response) {
-          var html = "<span class='label label-primary'>" +birthdate + "</span>" + "你的星座是" + response.name + "<br>" + "你的生命靈數" + "<br>" + result2 + response.lookup[result2-1];
-
-        $("<li></li>")
-          .addClass("list-group-item")
-          .html(html)
-          .prependTo("#guessResults");
-       /*   var x = document.createElement("li");
-         x.classList.add("list-group-item");
-         x.innerHTML = "<span class='label label-primary'>" +response.birthdate + "</span>" + "你的星座是" + response.s + "<br>" + "你的生命靈數" + "<br>" + response.result2 + response.life;
-         document.getElementById("guessResults").appendChild(x);*/
-         }
-       });
-
-       
-   
+      return result;
     }
+
+    function doAnalysis() {
+      var birthdate = $("#birthdate").val();
+
+      // yyyy/mm/dd to "aquarius", "pisces", or others ...
+      var name = dateToHoroscopeName(birthdate);
+
+      // equal to horoscopeData.aquarius, or others
+      // var yourHoroscope = horoscopeData[name];
+      var url = "https://gist.githubusercontent.com/dinowang/5290d4cebf96a666c29ab0878afeb2f1/raw/d8c778aad172fdf9175e1a1109409ba49d2647b8/" + name + ".json";
+
+      /*  $.get(url, null,
+          function (result, status, xhr) {
+            var index = getNumerologyIndex(birthdate);
+  
+            var html = "<p><span class='label label-info'>" +
+              birthdate + "</span> 出生的你，星座是 <em>" +
+              result.name + "</em></p>" +
+              "<p>你的生命靈數：<br>" + index + ". " +
+              result.lookup[index - 1] + "</p>";
+  
+            $("<li></li>")
+              .addClass("list-group-item")
+              .html(html)
+              .prependTo("#results");
+          },
+          "json"
+        );
+  
+      }*/
+
+      $.ajax({
+        type: "get",
+        url: url,
+        // data: "data",
+        dataType: "json",
+        error: function (result, status, xhr) {
+          alert("錯了");
+        },
+        success: function (response) {
+          var index = getNumerologyIndex(birthdate);
+
+          var html = "<p><span class='label label-info'>" +
+            birthdate + "</span> 出生的你，星座是 <em>" +
+            response.name + "</em></p>" +
+            "<p>你的生命靈數：<br>" + index + ". " +
+            response.lookup[index - 1] + "</p>";
+
+          $("<li></li>")
+            .addClass("list-group-item")
+            .html(html)
+            .prependTo("#results");
+        }
+      });
+    }
+
+ 
+
+    
+    
+    // $("#stop").click(function(e){
+    //  e.preventDefault();
+    //   clearInterval(rum);
+    //});
+    // setTimeout(function(){alert("BOM")},1500);
+    $("#birthdate").keyup(function (event) {
+      if (event.keyCode == 13) {
+        doAnalysis();
+      }
+    });
+   function time(){
+     var seconds = 5;
+    setInterval(function () {
+      　document.getElementById('showbox').innerHTML = +seconds+'秒';
+          seconds--; 
+          if(seconds == 0){
+            alert("停止");
+          }
+      
+    }, 1000);
+
+   }
 
   </script>
 </body>
